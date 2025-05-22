@@ -2,7 +2,7 @@
 
 This is the accompanying repository to the paper titled "An experimental validation of architectural measures for cloud-native quality evaluations".
 It is intended to make the experiments conducted in the context of the paper repeatable and it contains the data gathered while running the experiments for the paper.
-(This repository, however, contains the experiment data only in aggregated form, the raw data is planned to be published on a platform like <https://zenodo.org/>)
+This repository, however, contains the experiment data only in aggregated form, the raw data published here: <https://doi.org/10.5281/zenodo.15488911>.
 
 ## Running experiments
 
