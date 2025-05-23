@@ -179,7 +179,8 @@ service_template:
         deployed_entities_scaling: automated-built-in
         self_scaling: automated-built-in
         enforced_resource_bounds: false
-        account: default-account
+        identities:
+          default-account: account
       capabilities:
         host: {}
         address_resolution:
@@ -200,7 +201,7 @@ service_template:
         maintenance: automated
         provisioning: transparent
         supported_artifacts:
-          - Deployment.Image.VM
+          - Image.VM
         availability_zone: us-east-1a,us-east-1b,us-east-1c
         region: us-east-1
         supported_update_strategies:
@@ -210,7 +211,8 @@ service_template:
         deployed_entities_scaling: automated-built-in
         self_scaling: manual
         enforced_resource_bounds: true
-        account: default-account
+        identities:
+          default-account: account
       capabilities:
         host: {}
         address_resolution:
@@ -245,7 +247,8 @@ service_template:
         deployed_entities_scaling: manual
         self_scaling: manual
         enforced_resource_bounds: true
-        account: default-account
+        identities:
+          default-account: account
       capabilities:
         host: {}
       requirements:
@@ -272,10 +275,11 @@ service_template:
         software_type: custom
         stateless: true
         load_shedding: false
-        account: default-account
+        identities:
+          default-account: account
       artifacts:
         container_image:
-          type: Deployment.Image.VM
+          type: Image.VM
           file: ''
           repository: ''
           description: ''
@@ -349,7 +353,8 @@ service_template:
         software_type: custom
         stateless: true
         load_shedding: false
-        account: default-account
+        identities:
+          default-account: account
         kind: Load Balancer
       capabilities:
         proxy:
@@ -382,10 +387,11 @@ service_template:
         software_type: custom
         stateless: true
         load_shedding: false
-        account: default-account
+        identities:
+          default-account: account
       artifacts:
         container_image:
-          type: Deployment.Image.VM
+          type: Image.VM
           file: ''
           repository: ''
           description: ''
@@ -575,10 +581,11 @@ service_template:
         software_type: custom
         stateless: true
         load_shedding: false
-        account: default-account
+        identities:
+          default-account: account
       artifacts:
         container_image:
-          type: Deployment.Image.VM
+          type: Image.VM
           file: ''
           repository: ''
           description: ''
@@ -666,10 +673,11 @@ service_template:
         software_type: custom
         stateless: true
         load_shedding: false
-        account: default-account
+        identities:
+          default-account: account
       artifacts:
         container_image:
-          type: Deployment.Image.VM
+          type: Image.VM
           file: ''
           repository: ''
           description: ''
@@ -736,13 +744,14 @@ service_template:
         software_type: open-source
         stateless: false
         load_shedding: false
-        account: default-account
+        identities:
+          default-account: account
         name: ''
         shards: 1
         replication_strategy: none
       artifacts:
         container_image:
-          type: Deployment.Image.VM
+          type: Image.VM
           file: ''
           repository: ''
           description: ''
@@ -793,7 +802,8 @@ service_template:
         software_type: custom
         stateless: false
         load_shedding: false
-        account: default-account
+        identities:
+          default-account: account
         providedFunctionality: naming/addressing
         replication_strategy: none
       capabilities:
@@ -802,7 +812,7 @@ service_template:
             address_resolution_kind: discovery
       artifacts:
         container_image:
-          type: Deployment.Image.VM
+          type: Image.VM
           file: ''
           repository: ''
           description: ''
@@ -852,10 +862,11 @@ service_template:
         software_type: custom
         stateless: true
         load_shedding: false
-        account: default-account
+        identities:
+          default-account: account
       artifacts:
         container_image:
-          type: Deployment.Image.VM
+          type: Image.VM
           file: ''
           repository: ''
           description: ''
@@ -968,13 +979,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /image/regenerateImages
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /image/regenerateImages
+          properties: {}
       requirements:
         - uses_data: image
     getproductimages:
@@ -993,13 +1003,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /image/getProductImages
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /image/getProductImages
+          properties: {}
       requirements:
         - uses_data: image
     getwebimages:
@@ -1018,13 +1027,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: image/getWebImages
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: image/getWebImages
+          properties: {}
       requirements:
         - uses_data: image
     finished:
@@ -1043,13 +1051,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /image/finished
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /image/finished
+          properties: {}
     setcachesize:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1066,13 +1073,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /image/setCacheSize
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /image/setCacheSize
+          properties: {}
     state:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1089,13 +1095,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /image/state
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /image/state
+          properties: {}
     isready_b:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1112,13 +1117,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /ready/isready
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /ready/isready
+          properties: {}
     index:
       type: cna-modeling.entities.Endpoint.External
       metadata:
@@ -1135,19 +1139,14 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /index
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /index
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /index
+          properties: {}
       requirements:
         - uses_data: category
         - uses_data: image
@@ -1167,19 +1166,14 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /cartAction/addToCart
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/addToCart
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/addToCart
+          properties: {}
       requirements:
         - uses_data: product
         - uses_data: user
@@ -1199,19 +1193,14 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /about
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /about
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /about
+          properties: {}
       requirements:
         - uses_data: image
     remove_from_cart:
@@ -1230,19 +1219,14 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /cartAction/removeProduct
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/removeProduct
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/removeProduct
+          properties: {}
       requirements:
         - uses_data: user
     update_quantity:
@@ -1261,19 +1245,14 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /cartAction/updateCartQuantities
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/updateCartQuantities
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/updateCartQuantities
+          properties: {}
       requirements:
         - uses_data: user
     confirm_order:
@@ -1292,19 +1271,14 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /cartAction/confirm
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/confirm
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/confirm
+          properties: {}
       requirements:
         - uses_data: order
         - uses_data: user
@@ -1324,19 +1298,14 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /cartAction/proceedToCheckout
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/proceedToCheckout
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cartAction/proceedToCheckout
+          properties: {}
       requirements:
         - uses_data: order
         - uses_data: user
@@ -1356,19 +1325,14 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /order
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /order
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /order
+          properties: {}
       requirements:
         - uses_data: category
         - uses_data: image
@@ -1389,19 +1353,14 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /cart
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cart
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cart
+          properties: {}
       requirements:
         - uses_data: category
         - uses_data: image
@@ -1422,19 +1381,14 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /dataBaseAction/confirm
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /dataBaseAction/confirm
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /dataBaseAction/confirm
+          properties: {}
       requirements:
         - uses_data: image
         - uses_data: order
@@ -1456,19 +1410,14 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /loginAction
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /loginAction
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /loginAction
+          properties: {}
       requirements:
         - uses_data: user
     show_profile:
@@ -1487,19 +1436,14 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /profile
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /profile
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /profile
+          properties: {}
       requirements:
         - uses_data: image
         - uses_data: user
@@ -1519,19 +1463,14 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /database
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /database
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /database
+          properties: {}
     system_status:
       type: cna-modeling.entities.Endpoint.External
       metadata:
@@ -1548,19 +1487,14 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /status
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /status
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /status
+          properties: {}
     get_category:
       type: cna-modeling.entities.Endpoint.External
       metadata:
@@ -1577,19 +1511,14 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /category
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /category
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /category
+          properties: {}
       requirements:
         - uses_data: category
     show_product:
@@ -1608,19 +1537,14 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP GET
+        port: ''
+        url_path: /product
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP GET
-            port: ''
-            secure: false
-            url_path: /product
+          properties: {}
         external_endpoint:
-          properties:
-            protocol: HTTP GET
-            port: ''
-            secure: false
-            url_path: /product
+          properties: {}
       requirements:
         - uses_data: category
         - uses_data: image
@@ -1641,13 +1565,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /cart/add/{pid}
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cart/add/{pid}
+          properties: {}
       requirements:
         - uses_data: product
     isloggedin:
@@ -1666,13 +1589,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /useractions/isloggedin
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /useractions/isloggedin
+          properties: {}
       requirements:
         - uses_data: user
     login:
@@ -1691,13 +1613,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /useractions/login
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /useractions/login
+          properties: {}
       requirements:
         - uses_data: user
     logout:
@@ -1716,13 +1637,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP POST
+        port: ''
+        url_path: /useractions/logout
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP POST
-            port: ''
-            secure: false
-            url_path: /useractions/logout
+          properties: {}
       requirements:
         - uses_data: user
     placeorder:
@@ -1741,13 +1661,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /useractions/placeorder
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /useractions/placeorder
+          properties: {}
       requirements:
         - uses_data: order
     remove:
@@ -1766,13 +1685,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /cart/remove/{pid}
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cart/remove/{pid}
+          properties: {}
     updatequantity:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1789,13 +1707,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /cart/{pid}
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /cart/{pid}
+          properties: {}
       requirements:
         - uses_data: product
         - uses_data: user
@@ -1815,13 +1732,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: ready/isready
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: ready/isready
+          properties: {}
     recommendsingle:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1838,13 +1754,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /recommendsingle
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /recommendsingle
+          properties: {}
     recommend:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1861,13 +1776,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /recommend
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /recommend
+          properties: {}
     timestamp:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1884,13 +1798,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /train/timestamp
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /train/timestamp
+          properties: {}
     train:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1907,13 +1820,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /train
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /train
+          properties: {}
     isready_a:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1930,13 +1842,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /train/isready
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /train/isready
+          properties: {}
     sql:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -1953,13 +1864,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: ''
+        port: ''
+        url_path: ''
       capabilities:
         endpoint:
-          properties:
-            protocol: ''
-            port: ''
-            secure: false
-            url_path: ''
+          properties: {}
       requirements:
         - uses_data: category
         - uses_data: order
@@ -1981,13 +1891,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /services/{name}/location
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /services/{name}/location
+          properties: {}
     remove_service_location:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -2004,13 +1913,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /services{name}/location
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /services{name}/location
+          properties: {}
     getinstances:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -2027,13 +1935,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /services/{name}
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /services/{name}
+          properties: {}
     create_user:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -2050,13 +1957,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /users
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /users
+          properties: {} 
       requirements:
         - uses_data: user
     get_user:
@@ -2075,13 +1981,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /users/{id}
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /users/{id}
+          properties: {} 
       requirements:
         - uses_data: user
     get_users:
@@ -2100,13 +2005,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /users
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /users
+          properties: {}
       requirements:
         - uses_data: user
     create_product:
@@ -2125,13 +2029,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /products
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /products
+          properties: {}
       requirements:
         - uses_data: product
     get_products:
@@ -2150,13 +2053,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /products
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /products
+          properties: {}
       requirements:
         - uses_data: product
     generatedb:
@@ -2175,13 +2077,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: ''
+        port: ''
+        url_path: ''
       capabilities:
         endpoint:
-          properties:
-            protocol: ''
-            port: ''
-            secure: false
-            url_path: ''
+          properties: {}
       requirements:
         - uses_data: order
         - uses_data: product
@@ -2202,13 +2103,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /categories
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /categories
+          properties: {}
     get_category_a:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -2225,13 +2125,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /categories/{id}
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /categories/{id}
+          properties: {}
       requirements:
         - uses_data: category
     get_categories:
@@ -2250,13 +2149,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /categories
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /categories
+          properties: {}
       requirements:
         - uses_data: category
     get_orders:
@@ -2275,13 +2173,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /orders
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /orders
+          properties: {}
     get_order:
       type: cna-modeling.entities.Endpoint
       metadata:
@@ -2298,13 +2195,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /orders/{id}
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /orders/{id}
+          properties: {}
       requirements:
         - uses_data: order
     create_order:
@@ -2323,13 +2219,12 @@ service_template:
         idempotent: false
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /orders
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /orders
+          properties: {}
       requirements:
         - uses_data: order
     get_product:
@@ -2348,13 +2243,12 @@ service_template:
         idempotent: true
         readiness_check: false
         health_check: false
+        protocol: HTTP
+        port: ''
+        url_path: /products/{id}
       capabilities:
         endpoint:
-          properties:
-            protocol: HTTP
-            port: ''
-            secure: false
-            url_path: /products/{id}
+          properties: {}
       requirements:
         - uses_data: product
     index_page:

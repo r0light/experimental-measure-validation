@@ -521,3 +521,6 @@ msummary(list("teaStore"=linearModel1, "Product Page"=linearModel2), output = 'l
          stars = TRUE,
          title = "test", gof_omit = 'IC|Log|RMSE')
 
+
+
+
