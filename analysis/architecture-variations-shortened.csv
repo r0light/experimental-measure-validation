@@ -1,14 +1,14 @@
-"entityName","entityType","serviceReplicationLevel_original","serviceReplicationLevel_highreplication","serviceReplicationLevel_lowreplication","serviceReplicationLevel_mixedreplication","storageReplicationLevel_original","storageReplicationLevel_rds-single-highreplication","storageReplicationLevel_rds-two-noreplication",storageReplicationLevel_rds-three-noreplication,"dataReplicationAlongRequestTrace_original","dataReplicationAlongRequestTrace_noreplication-nocaching","dataReplicationAlongRequestTrace_noreplication-withcaching","dataReplicationAlongRequestTrace_noreplication-withmorecaching","dataReplicationAlongRequestTrace_withfailures-nocaching","dataReplicationAlongRequestTrace_withfailures-withcaching","dataReplicationAlongRequestTrace_withfailures-withmorecaching","ratioOfCachedDataAggregates_original","ratioOfCachedDataAggregates_noreplication-nocaching","ratioOfCachedDataAggregates_noreplication-withcaching","ratioOfCachedDataAggregates_noreplication-withmorecaching"
-"teaStore","system",1,5,2,3.4,1,1,2,3,NA,NA,NA,NA,NA,NA,NA,0.333,0,0.75,0.917
-"Imageprovider","service",1,5,2,3,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Webui","service",1,5,2,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,0,1,1
-"Auth","service",1,5,2,3,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,0,0,0.667
-"Recommender","service",1,5,2,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"Persistence","service",1,5,2,5,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1,0,1,1
-"DB","sbs",NA,NA,NA,NA,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
-"User Login","requestTrace",1,5,2,4.333,1,1,2,3,0.875,0.812,0.938,1,0.812,0.938,1,NA,NA,NA,NA
-"Show Category","requestTrace",1,5,2,4,1,1,2,3,0.833,0.667,0.9,1,0.667,0.9,1,NA,NA,NA,NA
-"Add Product To Cart","requestTrace",1,5,2,4.333,1,1,2,3,0.75,0.688,0.938,1,0.688,0.938,1,NA,NA,NA,NA
-"Index Page","requestTrace",1,5,2,4,1,1,2,3,0.733,0.667,0.9,1,0.667,0.9,1,NA,NA,NA,NA
-"Product Page","requestTrace",1,5,2,3.4,1,1,2,3,0.667,0.533,0.9,1,0.533,0.9,1,NA,NA,NA,NA
-"User Logout","requestTrace",1,5,2,4,NA,NA,NA,NA,0,0,0.5,1,0,0.5,1,NA,NA,NA,NA
+"entityName","entityType","serviceReplicationLevel_original","serviceReplicationLevel_highreplication","serviceReplicationLevel_lowreplication","serviceReplicationLevel_mixedreplication","storageReplicationLevel_rds-single-highreplication","storageReplicationLevel_rds-two-noreplication",storageReplicationLevel_rds-three-noreplication,"dataReplicationAlongRequestTrace_original","dataReplicationAlongRequestTrace_noreplication-nocaching","dataReplicationAlongRequestTrace_noreplication-withcaching","dataReplicationAlongRequestTrace_noreplication-withmorecaching","ratioOfCachedDataAggregates_original","ratioOfCachedDataAggregates_noreplication-nocaching","ratioOfCachedDataAggregates_noreplication-withcaching","ratioOfCachedDataAggregates_noreplication-withmorecaching"
+"teaStore","system",1,5,2,3.4,1,2,3,NA,NA,NA,NA,0.333,0,0.75,0.917
+"Imageprovider","service",1,5,2,3,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Webui","service",1,5,2,5,NA,NA,NA,NA,NA,NA,NA,0,0,1,1
+"Auth","service",1,5,2,3,NA,NA,NA,NA,NA,NA,NA,0,0,0,0.667
+"Recommender","service",1,5,2,1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+"Persistence","service",1,5,2,5,NA,NA,NA,NA,NA,NA,NA,1,0,1,1
+"DB","sbs",NA,NA,NA,NA,1,2,3,NA,NA,NA,NA,NA,NA,NA,NA
+"User Login","requestTrace",1,5,2,4.333,1,2,3,0.875,0.812,0.938,1,NA,NA,NA,NA
+"Show Category","requestTrace",1,5,2,4,1,2,3,0.833,0.667,0.9,1,NA,NA,NA,NA
+"Add Product To Cart","requestTrace",1,5,2,4.333,1,2,3,0.75,0.688,0.938,1,NA,NA,NA,NA
+"Index Page","requestTrace",1,5,2,4,1,2,3,0.733,0.667,0.9,1,NA,NA,NA,NA
+"Product Page","requestTrace",1,5,2,3.4,1,2,3,0.667,0.533,0.9,1,NA,NA,NA,NA
+"User Logout","requestTrace",1,5,2,4,NA,NA,NA,0,0,0.5,1,NA,NA,NA,NA

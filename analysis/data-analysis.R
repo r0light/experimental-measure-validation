@@ -188,7 +188,7 @@ plotResult <- function(data, entityName, xVar, yVar, legendPos) {
           legend.box.background = element_rect(colour = "black"))
 }
 
-plotResultWithRegression <- function(data, hypoName, entityName, xVar, yVar, form, legendPos) {
+plotResultWithRegression <- function(data, hypoName, entityName, xVar, xLab, yVar, form, legendPos) {
   if (legendPos == "tr") {
     legendPosValues <- c(0.7,0.75)
   } else if (legendPos == "br") {
@@ -204,21 +204,27 @@ plotResultWithRegression <- function(data, hypoName, entityName, xVar, yVar, for
   linearModel = lm(formula(form), data = data %>% filter(entityName == {{entityName}})) # linear regression
   summary(linearModel) #Review the results
   
-  textSize <- 20
+  textSize <- 16
+  legendSize <- 14
   
   ggplot(data %>% filter(entityName == {{entityName}}), aes(x={{xVar}}, y={{yVar}}, colour = architectureVariation, shape = factor(loadLevel))) + 
     geom_point(size=2) +
     labs(title= paste("Results for ", hypoName, " (entity: ", entityName, ")"), color = "Architecture variation", shape ="Load level [req/s]") +
-    theme(plot.title = element_text(size = 22),
+    xlab(xLab) +
+    theme(plot.title = element_text(size = 18),
           axis.title = element_text(size = textSize),
           axis.text = element_text(colour = 1, size = textSize),
           legend.position = "inside",
+          legend.direction="vertical",
           legend.position.inside = legendPosValues,
           legend.spacing.y = unit(0, "mm"), 
-          legend.title = element_text(size = textSize, face = "bold"),
-          legend.text = element_text(size = textSize),
+          legend.title = element_text(size = legendSize, face = "bold"),
+          legend.text = element_text(size = legendSize),
           legend.background = element_blank(),
           legend.box.background = element_rect(colour = "black")) +
+    guides(shape = guide_legend(
+              direction = "horizontal")
+    ) + 
     geom_abline(slope = coef(linearModel)[[2]], 
                 intercept = coef(linearModel)[["(Intercept)"]],
                 linetype="dashed")
@@ -252,46 +258,46 @@ hypothesis1 <- investigateServiceReplicationTimeBehaviour(rbind(teastorePrivateN
                                                                 teastorePrivateNlbNoreplication,
                                                                 teastorePrivateNlbMixedreplication))
 
-plotResultWithRegression(hypothesis1, "H1", "teaStore", serviceReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+plotResultWithRegression(hypothesis1, "H1", "teaStore", serviceReplicationLevel, "Service replication level (SeR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
 reportLinearModel(hypothesis1, "teaStore", `90th_percentile(elapsed) [ms]`~serviceReplicationLevel)
 
-plotResultWithRegression(hypothesis1, "H1", "Index Page", serviceReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+plotResultWithRegression(hypothesis1, "H1", "Index Page", serviceReplicationLevel, "Service replication level (SeR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
 reportLinearModel(hypothesis1, "Index Page", `90th_percentile(elapsed) [ms]`~serviceReplicationLevel)
 
-plotResultWithRegression(hypothesis1, "H1", "Show Category", serviceReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+plotResultWithRegression(hypothesis1, "H1", "Show Category", serviceReplicationLevel, "Service replication level (SeR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
 reportLinearModel(hypothesis1, "Show Category", `90th_percentile(elapsed) [ms]`~serviceReplicationLevel)
 
-plotResultWithRegression(hypothesis1, "H1", "User Login", serviceReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+plotResultWithRegression(hypothesis1, "H1", "User Login", serviceReplicationLevel, "Service replication level (SeR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
 reportLinearModel(hypothesis1, "User Login", `90th_percentile(elapsed) [ms]`~serviceReplicationLevel)
 
-plotResultWithRegression(hypothesis1, "H1", "Product Page", serviceReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+plotResultWithRegression(hypothesis1, "H1", "Product Page", serviceReplicationLevel, "Service replication level (SeR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
 reportLinearModel(hypothesis1, "Product Page", `90th_percentile(elapsed) [ms]`~serviceReplicationLevel)
 
-plotResultWithRegression(hypothesis1, "H1", "Add Product To Cart", serviceReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+plotResultWithRegression(hypothesis1, "H1", "Add Product To Cart", serviceReplicationLevel, "Service replication level (SeR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
 reportLinearModel(hypothesis1, "Add Product To Cart", `90th_percentile(elapsed) [ms]`~serviceReplicationLevel)
 
-plotResultWithRegression(hypothesis1, "H1", "User Logout", serviceReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+plotResultWithRegression(hypothesis1, "H1", "User Logout", serviceReplicationLevel, "Service replication level (SeR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
 reportLinearModel(hypothesis1, "User Logout", `90th_percentile(elapsed) [ms]`~serviceReplicationLevel)
 
-plotResultWithRegression(hypothesis1, "H1", "teaStore", smallestReplicationValue, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
+plotResultWithRegression(hypothesis1, "H1", "teaStore", smallestReplicationValue, "Smallest replication level", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
 reportLinearModel(hypothesis1, "teaStore", `90th_percentile(elapsed) [ms]`~smallestReplicationValue)
 
-plotResultWithRegression(hypothesis1, "H1", "Index Page", smallestReplicationValue, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
+plotResultWithRegression(hypothesis1, "H1", "Index Page", smallestReplicationValue, "Smallest replication level", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
 reportLinearModel(hypothesis1, "Index Page", `90th_percentile(elapsed) [ms]`~smallestReplicationValue)
 
-plotResultWithRegression(hypothesis1, "H1", "Show Category", smallestReplicationValue, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
+plotResultWithRegression(hypothesis1, "H1", "Show Category", smallestReplicationValue, "Smallest replication level", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
 reportLinearModel(hypothesis1, "Show Category", `90th_percentile(elapsed) [ms]`~smallestReplicationValue)
 
-plotResultWithRegression(hypothesis1, "H1", "User Login", smallestReplicationValue, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
+plotResultWithRegression(hypothesis1, "H1", "User Login", smallestReplicationValue, "Smallest replication level", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
 reportLinearModel(hypothesis1, "User Login", `90th_percentile(elapsed) [ms]`~smallestReplicationValue)
 
-plotResultWithRegression(hypothesis1, "H1", "Product Page", smallestReplicationValue, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
+plotResultWithRegression(hypothesis1, "H1", "Product Page", smallestReplicationValue, "Smallest replication level", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
 reportLinearModel(hypothesis1, "Product Page", `90th_percentile(elapsed) [ms]`~smallestReplicationValue)
 
-plotResultWithRegression(hypothesis1, "H1", "Add Product To Cart", smallestReplicationValue, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
+plotResultWithRegression(hypothesis1, "H1", "Add Product To Cart", smallestReplicationValue, "Smallest replication level", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
 reportLinearModel(hypothesis1, "Add Product To Cart", `90th_percentile(elapsed) [ms]`~smallestReplicationValue)
 
-plotResultWithRegression(hypothesis1, "H1", "User Logout", smallestReplicationValue, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
+plotResultWithRegression(hypothesis1, "H1", "User Logout", smallestReplicationValue, "Smallest replication level", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~smallestReplicationValue, "tr")
 reportLinearModel(hypothesis1, "User Logout", `90th_percentile(elapsed) [ms]`~smallestReplicationValue)
 
 # --------------------
@@ -313,13 +319,13 @@ hypothesis2 <- investigateServiceReplicationAvailability(rbind(teastorePrivateNl
                                                                teastorePrivateNlbWithfailuresNoreplication,
                                                                teastorePrivateNlbWithfailuresMixedreplication))
 
-plotResultWithRegression(hypothesis2, "H2", "teaStore", serviceReplicationLevel, `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
-plotResultWithRegression(hypothesis2, "H2", "Index Page", serviceReplicationLevel, `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
-plotResultWithRegression(hypothesis2, "H2", "Show Category", serviceReplicationLevel, `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
-plotResultWithRegression(hypothesis2, "H2", "User Login", serviceReplicationLevel, `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
-plotResultWithRegression(hypothesis2, "H2", "Product Page", serviceReplicationLevel, `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
-plotResultWithRegression(hypothesis2, "H2", "Add Product To Cart", serviceReplicationLevel, `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
-plotResultWithRegression(hypothesis2, "H2", "User Logout", serviceReplicationLevel, `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
+plotResultWithRegression(hypothesis2, "H2", "teaStore", serviceReplicationLevel, "Service replication level (SeR)", `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
+plotResultWithRegression(hypothesis2, "H2", "Index Page", serviceReplicationLevel, "Service replication level (SeR)", `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
+plotResultWithRegression(hypothesis2, "H2", "Show Category", serviceReplicationLevel, "Service replication level (SeR)", `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
+plotResultWithRegression(hypothesis2, "H2", "User Login", serviceReplicationLevel, "Service replication level (SeR)", `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
+plotResultWithRegression(hypothesis2, "H2", "Product Page", serviceReplicationLevel, "Service replication level (SeR)", `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
+plotResultWithRegression(hypothesis2, "H2", "Add Product To Cart", serviceReplicationLevel, "Service replication level (SeR)", `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
+plotResultWithRegression(hypothesis2, "H2", "User Logout", serviceReplicationLevel, "Service replication level (SeR)", `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
 
 # --------------------
 # Hypothesis 3
@@ -341,21 +347,21 @@ hypothesis3b <- investigateHorizontalReplicationTimeBehaviour(rbind(teastorePriv
                                                                      teastorePrivateNlbRdsTwoHighreplication,
                                                                      teastorePrivateNlbRdsThreeHighreplication))
 
-plotResultWithRegression(hypothesis3a, "H3", "teaStore", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3a, "H3", "Index Page", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3a, "H3", "Show Category", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3a, "H3", "User Login", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3a, "H3", "Product Page", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3a, "H3", "Add Product To Cart", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-#plotResultWithRegression(hypothesis3a, "H3", "User Logout", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3a, "H3", "teaStore", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3a, "H3", "Index Page", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3a, "H3", "Show Category", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3a, "H3", "User Login", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3a, "H3", "Product Page", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3a, "H3", "Add Product To Cart", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+#plotResultWithRegression(hypothesis3a, "H3", "User Logout", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
 
-plotResultWithRegression(hypothesis3b, "H3", "teaStore", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3b, "H3", "Index Page", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3b, "H3", "Show Category", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3b, "H3", "User Login", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3b, "H3", "Product Page", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-plotResultWithRegression(hypothesis3b, "H3", "Add Product To Cart", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
-#plotResultWithRegression(hypothesis3b, "H3", "User Logout", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3b, "H3", "teaStore", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3b, "H3", "Index Page", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3b, "H3", "Show Category", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3b, "H3", "User Login", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3b, "H3", "Product Page", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+plotResultWithRegression(hypothesis3b, "H3", "Add Product To Cart", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
+#plotResultWithRegression(hypothesis3b, "H3", "User Logout", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tr")
 
 # --------------------
 # Hypothesis 4
@@ -376,13 +382,13 @@ hypothesis4 <- investigateVerticalReplicationTimeBehaviour(rbind(teastorePrivate
                                                                  teastorePrivateNlbNoreplicationWithmorecaching,
                                                                  teastorePrivateNlbNoreplication))
 
-plotResultWithRegression(hypothesis4, "H4", "teaStore", ratioOfCachedDataAggregates, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~ratioOfCachedDataAggregates, "tr")
-plotResultWithRegression(hypothesis4, "H4", "Index Page", dataReplicationAlongRequestTrace, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
-plotResultWithRegression(hypothesis4, "H4", "Show Category", dataReplicationAlongRequestTrace, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
-plotResultWithRegression(hypothesis4, "H4", "User Login", dataReplicationAlongRequestTrace, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
-plotResultWithRegression(hypothesis4, "H4", "Product Page", dataReplicationAlongRequestTrace, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
-plotResultWithRegression(hypothesis4, "H4", "Add Product To Cart", dataReplicationAlongRequestTrace, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
-plotResultWithRegression(hypothesis4, "H4", "User Logout", dataReplicationAlongRequestTrace, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
+plotResultWithRegression(hypothesis4, "H4", "teaStore", ratioOfCachedDataAggregates, "Ratio of cached data aggregates (CD)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~ratioOfCachedDataAggregates, "tr")
+plotResultWithRegression(hypothesis4, "H4", "Index Page", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
+plotResultWithRegression(hypothesis4, "H4", "Show Category", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
+plotResultWithRegression(hypothesis4, "H4", "User Login", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
+plotResultWithRegression(hypothesis4, "H4", "Product Page", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
+plotResultWithRegression(hypothesis4, "H4", "Add Product To Cart", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
+plotResultWithRegression(hypothesis4, "H4", "User Logout", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
 
 # --------------------
 # Hypothesis 5
@@ -403,13 +409,13 @@ hypothesis5 <- investigateVerticalReplicationAvailability(rbind(teastorePrivateN
                                                                 teastorePrivateNlbWithfailuresWithmorecaching,
                                                                 teastorePrivateNlbWithfailuresNoreplication))
 
-plotResultWithRegression(hypothesis5, "H5", "teaStore", ratioOfCachedDataAggregates, `success_rate [%]`, `success_rate [%]`~ratioOfCachedDataAggregates, "br")
-plotResultWithRegression(hypothesis5, "H5", "Index Page", dataReplicationAlongRequestTrace, `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
-plotResultWithRegression(hypothesis5, "H5", "Show Category", dataReplicationAlongRequestTrace, `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
-plotResultWithRegression(hypothesis5, "H5", "User Login", dataReplicationAlongRequestTrace, `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
-plotResultWithRegression(hypothesis5, "H5", "Product Page", dataReplicationAlongRequestTrace, `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
-plotResultWithRegression(hypothesis5, "H5", "Add Product To Cart", dataReplicationAlongRequestTrace, `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
-plotResultWithRegression(hypothesis5, "H5", "User Logout", dataReplicationAlongRequestTrace, `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
+plotResultWithRegression(hypothesis5, "H5", "teaStore", ratioOfCachedDataAggregates, "Ratio of cached data aggregates (CD)", `success_rate [%]`, `success_rate [%]`~ratioOfCachedDataAggregates, "br")
+plotResultWithRegression(hypothesis5, "H5", "Index Page", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
+plotResultWithRegression(hypothesis5, "H5", "Show Category", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
+plotResultWithRegression(hypothesis5, "H5", "User Login", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
+plotResultWithRegression(hypothesis5, "H5", "Product Page", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
+plotResultWithRegression(hypothesis5, "H5", "Add Product To Cart", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
+plotResultWithRegression(hypothesis5, "H5", "User Logout", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
 
 
 
@@ -417,19 +423,26 @@ plotResultWithRegression(hypothesis5, "H5", "User Logout", dataReplicationAlongR
 # Output for paper
 # ----------------------
 
+figureHeight <- 6
+figureWidth <- 9
+
 # H1: teaStore and Product Page
 
-h1teaStore <- plotResultWithRegression(hypothesis1, "H1", "teaStore", serviceReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+h1teaStore <- plotResultWithRegression(hypothesis1, "H1", "teaStore", serviceReplicationLevel, "Service replication level (SeR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+h1teaStore <- h1teaStore + scale_colour_discrete(breaks= c("noreplication", "lowreplication","mixedreplication","highreplication"))
+h1teaStore <- h1teaStore + labs(y="90th percentile response time [ms]")
 ggsave(h1teaStore, 
        filename = "h1teaStore.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
+       height = figureHeight, width = figureWidth, units = "in")
 
-h1productPage <- plotResultWithRegression(hypothesis1, "H1", "Product Page", serviceReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+h1productPage <- plotResultWithRegression(hypothesis1, "H1", "Product Page", serviceReplicationLevel, "Service replication level (SeR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~serviceReplicationLevel, "tr")
+h1productPage <- h1productPage + scale_colour_discrete(breaks= c("noreplication", "lowreplication","mixedreplication","highreplication"))
+h1productPage <- h1productPage + labs(y="90th percentile response time [ms]")
 ggsave(h1productPage, 
        filename = "h1productPage.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
+       height = figureHeight, width = figureWidth, units = "in")
 
 linearModel1 = lm(`90th_percentile(elapsed) [ms]`~serviceReplicationLevel, data = hypothesis1 %>% filter(entityName == "teaStore"))
 linearModel2 = lm(`90th_percentile(elapsed) [ms]`~serviceReplicationLevel, data = hypothesis1 %>% filter(entityName == "Product Page"))
@@ -439,17 +452,21 @@ msummary(list("teaStore"=linearModel1, "Product Page"=linearModel2), output = 'l
 
 # H2: Show Category and Logout
 
-h2showCategory<- plotResultWithRegression(hypothesis2, "H2", "Show Category", serviceReplicationLevel, `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
+h2showCategory <- plotResultWithRegression(hypothesis2, "H2", "Show Category", serviceReplicationLevel, "Service replication level (SeR)", `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "br")
+h2showCategory <- h2showCategory + scale_colour_discrete(breaks= c("withfailures-noreplication", "withfailures-lowreplication","withfailures-mixedreplication","withfailures-highreplication"))
+h2showCategory <- h2showCategory + labs(y="Success rate [%]")
 ggsave(h2showCategory, 
        filename = "h2showCategory.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
+       height = figureHeight, width = figureWidth, units = "in")
 
-h2login <- plotResultWithRegression(hypothesis2, "H2", "User Login", serviceReplicationLevel, `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "tr")
+h2login <- plotResultWithRegression(hypothesis2, "H2", "User Login", serviceReplicationLevel, "Service replication level (SeR)", `success_rate [%]`, `success_rate [%]`~serviceReplicationLevel, "tr")
+h2login <- h2login + scale_colour_discrete(breaks= c("withfailures-noreplication", "withfailures-lowreplication","withfailures-mixedreplication","withfailures-highreplication"))
+h2login <- h2login + labs(y="Success rate [%]")
 ggsave(h2login, 
        filename = "h2login.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
+       height = figureHeight, width = figureWidth, units = "in")
 
 linearModel1 = lm(`success_rate [%]`~serviceReplicationLevel, data = hypothesis2 %>% filter(entityName == "Show Category"))
 linearModel2 = lm(`success_rate [%]`~serviceReplicationLevel, data = hypothesis2 %>% filter(entityName == "User Login"))
@@ -459,17 +476,21 @@ msummary(list("Show Category"=linearModel1, "User Login"=linearModel2), output =
 
 # H3: teaStore low and teaStore high
 
-h3ateaStore <- plotResultWithRegression(hypothesis3a, "H3", "teaStore", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tl")
+h3ateaStore <- plotResultWithRegression(hypothesis3a, "H3", "teaStore", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tl")
+h3ateaStore <- h3ateaStore + scale_colour_discrete(breaks= c("rds-single-noreplication","rds-two-noreplication","rds-three-noreplication"))
+h3ateaStore <- h3ateaStore + labs(y="90th percentile response time [ms]")
 ggsave(h3ateaStore, 
        filename = "h3ateaStore.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
+       height = figureHeight, width = figureWidth, units = "in")
 
-h3bteaStore <- plotResultWithRegression(hypothesis3b, "H3", "teaStore", storageReplicationLevel, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tl")
+h3bteaStore <- plotResultWithRegression(hypothesis3b, "H3", "teaStore", storageReplicationLevel, "Storage replication level (StR)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~storageReplicationLevel, "tl")
+h3bteaStore <- h3bteaStore + scale_colour_discrete(breaks= c("rds-single-highreplication","rds-two-highreplication","rds-three-highreplication"))
+h3bteaStore <- h3bteaStore + labs(y="90th percentile response time [ms]")
 ggsave(h3bteaStore, 
        filename = "h3bteaStore.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
+       height = figureHeight, width = figureWidth, units = "in")
 
 linearModel1 = lm(`90th_percentile(elapsed) [ms]`~storageReplicationLevel, data = hypothesis3a %>% filter(entityName == "teaStore"))
 linearModel2 = lm(`90th_percentile(elapsed) [ms]`~storageReplicationLevel, data = hypothesis3b %>% filter(entityName == "teaStore"))
@@ -480,17 +501,21 @@ msummary(list("teaStore"=linearModel1, "teaStore"=linearModel2), output = 'latex
 
 # H4: teaStore and Product Page
 
-h4teaStore <- plotResultWithRegression(hypothesis4, "H4", "teaStore", ratioOfCachedDataAggregates, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~ratioOfCachedDataAggregates, "tr")
+h4teaStore <- plotResultWithRegression(hypothesis4, "H4", "teaStore", ratioOfCachedDataAggregates, "Ratio of cached data aggregates (CD)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~ratioOfCachedDataAggregates, "tr")
+h4teaStore <- h4teaStore + scale_colour_discrete(breaks= c("noreplication-nocaching", "noreplication","noreplication-withcaching","noreplication-withmorecaching"))
+h4teaStore <- h4teaStore + labs(y="90th percentile response time [ms]")
 ggsave(h4teaStore, 
        filename = "h4teaStore.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
+       height = figureHeight, width = figureWidth, units = "in")
 
-h4productPage <- plotResultWithRegression(hypothesis4, "H4", "Product Page", dataReplicationAlongRequestTrace, `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
+h4productPage <- plotResultWithRegression(hypothesis4, "H4", "Product Page", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `90th_percentile(elapsed) [ms]`, `90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, "tr")
+h4productPage <- h4productPage + scale_colour_discrete(breaks= c("noreplication-nocaching", "noreplication","noreplication-withcaching","noreplication-withmorecaching"))
+h4productPage <- h4productPage + labs(y="90th percentile response time [ms]")
 ggsave(h4productPage, 
        filename = "h4productPage.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
+       height = figureHeight, width = figureWidth, units = "in")
 
 linearModel1 = lm(`90th_percentile(elapsed) [ms]`~ratioOfCachedDataAggregates, data = hypothesis4 %>% filter(entityName == "teaStore"))
 linearModel2 = lm(`90th_percentile(elapsed) [ms]`~dataReplicationAlongRequestTrace, data = hypothesis4 %>% filter(entityName == "Product Page"))
@@ -499,25 +524,28 @@ msummary(list("teaStore"=linearModel1, "Product Page"=linearModel2), output = 'l
          title = "test", gof_omit = 'IC|Log|RMSE')
 
 
-# H5: teaStore and Product Page
+# H5: teaStore and Login Page
 
-h5teaStore <- plotResultWithRegression(hypothesis5, "H5", "teaStore", ratioOfCachedDataAggregates, `success_rate [%]`, `success_rate [%]`~ratioOfCachedDataAggregates, "br")
+h5teaStore <- plotResultWithRegression(hypothesis5, "H5", "teaStore", ratioOfCachedDataAggregates, "Ratio of cached data aggregates (CD)", `success_rate [%]`, `success_rate [%]`~ratioOfCachedDataAggregates, "br")
+h5teaStore <- h5teaStore + scale_colour_discrete(breaks= c("withfailures-nocaching", "withfailures-noreplication","withfailures-withcaching","withfailures-withmorecaching"))
+h5teaStore <- h5teaStore + labs(y="Success rate [%]")
 ggsave(h5teaStore, 
        filename = "h5teaStore.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
+       height = figureHeight, width = figureWidth, units = "in")
 
-h5productPage <- plotResultWithRegression(hypothesis5, "H5", "Product Page", dataReplicationAlongRequestTrace, `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "tl")
-ggsave(h5productPage, 
-       filename = "h5productPage.pdf",
+h5login<- plotResultWithRegression(hypothesis5, "H5", "User Login", dataReplicationAlongRequestTrace, "Data replication along request trace (RA)", `success_rate [%]`, `success_rate [%]`~dataReplicationAlongRequestTrace, "br")
+h5login <- h5login + scale_colour_discrete(breaks= c("withfailures-nocaching", "withfailures-noreplication","withfailures-withcaching","withfailures-withmorecaching"))
+h5login <- h5login + labs(y="Success rate [%]")
+ggsave(h5login, 
+       filename = "h5login.pdf",
        device = "pdf",
-       height = 8, width = 9, units = "in")
-# use RStudio export as pdf with 10 x 9 inches: h5productPage.pdf
+       height = figureHeight, width = figureWidth, units = "in")
 
 
 linearModel1 = lm(`success_rate [%]`~ratioOfCachedDataAggregates, data = hypothesis5 %>% filter(entityName == "teaStore"))
-linearModel2 = lm(`success_rate [%]`~dataReplicationAlongRequestTrace, data = hypothesis5 %>% filter(entityName == "Product Page"))
-msummary(list("teaStore"=linearModel1, "Product Page"=linearModel2), output = 'latex_tabular',
+linearModel2 = lm(`success_rate [%]`~dataReplicationAlongRequestTrace, data = hypothesis5 %>% filter(entityName == "User Login"))
+msummary(list("teaStore"=linearModel1, "User Login"=linearModel2), output = 'latex_tabular',
          stars = TRUE,
          title = "test", gof_omit = 'IC|Log|RMSE')
 
